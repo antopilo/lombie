@@ -9,3 +9,11 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+.vs
+lombie/Debug
+lombie/lombie-game.dir
+*.vcxproj
+*.filters
+*.user
+x64
+*.sln
