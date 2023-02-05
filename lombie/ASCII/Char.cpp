@@ -12,7 +12,7 @@ Char::~Char()
 
 }
 
-char Char::GetData() const
+unsigned char Char::GetData() const
 {
 	return _data;
 }

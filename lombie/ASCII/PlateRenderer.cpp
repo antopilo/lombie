@@ -103,11 +103,12 @@ void PlateRenderer::RenderPlate(const Plate& plate, const Matrix4& transform, co
 			_asciiShader->SetUniform("u_Model", cellTransform);
 			
 			const Char& data = plate.GetChar(x, y);
-			unsigned int asciiIndex = data.GetData();
+			const unsigned char dataChar = data.GetData();
+			int asciiIndex = dataChar;
 
 			_asciiShader->SetUniform("u_fgColor", data.GetFgColor());
 			_asciiShader->SetUniform("u_bgColor", data.GetBgColor());
-			_asciiShader->SetUniform("u_Char", (int)asciiIndex);
+			_asciiShader->SetUniform("u_Char", asciiIndex);
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 		}
 	}

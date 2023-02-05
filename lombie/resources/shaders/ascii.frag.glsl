@@ -11,7 +11,8 @@ uniform vec4 u_bgColor;
 void main()
 {
 	int coordsX = u_Char % 16;
-	int coordsY = u_Char / 16;
+	float coordsY = u_Char / 16;
+
 	vec2 uv = vec2(coordsX, coordsY) / vec2(16, 16);
 
 	vec2 textureRes = textureSize(u_Bitmap, 0);
@@ -19,5 +20,5 @@ void main()
 
 	vec2 finalUv = mix(uv, uv + vec2(1.0 / 16.0), v_UV);
 	float bitmapSample = texture(u_Bitmap, finalUv).r;
-	FragColor = mix(u_bgColor, u_fgColor, bitmapSample);
+	FragColor = mix(mix(u_bgColor, u_fgColor, bitmapSample), vec4(uv.x, uv.y, 0, 1), 0);
 }
