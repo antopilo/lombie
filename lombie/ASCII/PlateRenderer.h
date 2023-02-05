@@ -20,6 +20,6 @@ private:
 public:
 	static PlateRenderer& Get();
 
-	void RenderPlate(const Plate& plate, const Matrix4& transform, const Matrix4& view);
-	void RenderChar(const Char& data, const Matrix4& transform, const Matrix4& view);
+	void RenderPlate(const Plate& plate, const Matrix4& transform, const Matrix4& view, const Matrix4& projection, const Vector2& from = Vector2(0 , 0), const Vector2& to = Vector2(-1, -1));
+	void RenderChar(const Char& data, const Matrix4& transform);
 };

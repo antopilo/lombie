@@ -17,7 +17,7 @@ void main()
 	vec2 textureRes = textureSize(u_Bitmap, 0);
 	vec2 cellSize = textureRes / vec2(16.0f);
 
-	vec2 finalUv = mix(uv, uv + vec2(1.0/16.0), v_UV);
+	vec2 finalUv = mix(uv, uv + vec2(1.0 / 16.0), v_UV);
 	float bitmapSample = texture(u_Bitmap, finalUv).r;
 	FragColor = mix(u_bgColor, u_fgColor, bitmapSample);
 }

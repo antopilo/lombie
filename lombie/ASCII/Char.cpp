@@ -1,6 +1,6 @@
 #include "Char.h"
 
-Char::Char(char data, const Color& fg, const Color& bg) :
+Char::Char(unsigned char data, const Color& fg, const Color& bg) :
 	_data(data),
 	_fgColor(fg),
 	_bgColor(bg)

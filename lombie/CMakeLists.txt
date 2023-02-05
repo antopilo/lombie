@@ -1,15 +1,19 @@
 set(HEADERS World.h 
-ASCII/Plate.h 
-ASCII/Char.h
-ASCII/PlateRenderer.h
-Core/FileSystem.h)
+ASCII/Plate.h  
+ASCII/Char.h 
+ASCII/PlateRenderer.h 
+Core/InputManager.h 
+Core/FileSystem.h 
+Camera.h)
 
 set(SOURCES main.cpp 
 World.cpp 
 ASCII/Plate.cpp 
-ASCII/Char.cpp
-ASCII/PlateRenderer.cpp
-Core/FileSystem.cpp)
+ASCII/Char.cpp 
+ASCII/PlateRenderer.cpp 
+Core/FileSystem.cpp 
+Core/InputManager.cpp 
+Camera.cpp )
 
 add_executable(lombie-game ${HEADERS} ${SOURCES})
 set_property(TARGET lombie-game PROPERTY CXX_STANDARD 20)

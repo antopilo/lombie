@@ -16,7 +16,7 @@ Plate::Plate(uint32_t width, uint32_t height)
 
 		for (int y = 0; y < height; y++)
 		{
-			_data[x].push_back(Char(' '));
+			_data[x].push_back(Char(x + (y * 16), Color(0.2, 0.2, 0.2, 1.0)));
 		}
 	}
 }

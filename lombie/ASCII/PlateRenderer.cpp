@@ -59,53 +59,74 @@ PlateRenderer::~PlateRenderer()
 {
 }
 
-void PlateRenderer::RenderPlate(const Plate& plate, const Matrix4& transform, const Matrix4& view)
+void PlateRenderer::RenderPlate(const Plate& plate, const Matrix4& transform, const Matrix4& view, const Matrix4& projection, const Vector2& from, const Vector2& to)
 {
+	int startX = 0;
+	int startY = 0;
+	if (from.x > 0 )
+	{
+		startX = from.x;
+	}
+	if (from.y > 0)
+	{
+		startY = from.y;
+	}
+
+	int toX = plate.GetWidth();
+	int toY = plate.GetHeight();
+	if (to.x > 0 && to.x < plate.GetWidth())
+	{
+		toX = to.x;
+	}
+	if (to.y > 0 && to.y < plate.GetHeight())
+	{
+		toY = to.y;
+	}
+
 	using namespace NuakeRenderer;
 	_asciiShader->Bind();
 	_asciiShader->SetUniform("u_View", view);
+	_asciiShader->SetUniform("u_Projection", projection);
 
 	_bitmap->Bind(1);
 	_asciiShader->SetUniform("u_Bitmap", 1);
 	
 	_vertexArray->Bind();
 
-
 	//Matrix4 transform2 = glm::scale(transform, Vector3(10, 10, 10));
-	for (int x = 0; x < plate.GetWidth(); x++)
+	for (int x = startX; x < toX; x++)
 	{
 		Matrix4 rowTransform = glm::translate(transform, Vector3(x, 0, 0));
-		for (int y = 0; y < plate.GetHeight(); y++)
+		for (int y = startY; y < toY; y++)
 		{
 			Matrix4 cellTransform = glm::translate(rowTransform, Vector3(0, y, 0));
 			_asciiShader->SetUniform("u_Model", cellTransform);
-
+			
 			const Char& data = plate.GetChar(x, y);
-			int asciiIndex = (int)data.GetData();
+			unsigned int asciiIndex = data.GetData();
 
 			_asciiShader->SetUniform("u_fgColor", data.GetFgColor());
 			_asciiShader->SetUniform("u_bgColor", data.GetBgColor());
-			_asciiShader->SetUniform("u_Char", asciiIndex);
+			_asciiShader->SetUniform("u_Char", (int)asciiIndex);
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 		}
 	}
 }
 
-void PlateRenderer::RenderChar(const Char& data, const Matrix4& transform, const Matrix4& view)
+void PlateRenderer::RenderChar(const Char& data, const Matrix4& transform)
 {
 	using namespace NuakeRenderer;
 	_asciiShader->Bind();
-	_asciiShader->SetUniform("u_View", view);
 
 	_bitmap->Bind(1);
 	_asciiShader->SetUniform("u_Bitmap", 1);
 
 	_vertexArray->Bind();
-	int asciiIndex = (int)data.GetData();
+	unsigned int asciiIndex = (unsigned int)data.GetData();
 	_asciiShader->SetUniform("u_fgColor", data.GetFgColor());
 	_asciiShader->SetUniform("u_bgColor", data.GetBgColor());
 	_asciiShader->SetUniform("u_Char", asciiIndex);
+	_asciiShader->SetUniform("u_Model", transform);
 
-	_vertexArray->Bind();
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
