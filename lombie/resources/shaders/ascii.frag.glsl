@@ -7,9 +7,11 @@ uniform sampler2D u_Bitmap;
 uniform int u_Char;
 uniform vec4 u_fgColor;
 uniform vec4 u_bgColor;
+uniform int u_isHalf;
 
 void main()
 {
+
 	int coordsX = u_Char % 16;
 	float coordsY = u_Char / 16;
 
@@ -20,5 +22,5 @@ void main()
 
 	vec2 finalUv = mix(uv, uv + vec2(1.0 / 16.0), v_UV);
 	float bitmapSample = texture(u_Bitmap, finalUv).r;
-	FragColor = mix(mix(u_bgColor, u_fgColor, bitmapSample), vec4(uv.x, uv.y, 0, 1), 0);
+	FragColor = mix(u_bgColor, u_fgColor, bitmapSample);
 }

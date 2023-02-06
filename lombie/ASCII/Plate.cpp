@@ -16,7 +16,7 @@ Plate::Plate(uint32_t width, uint32_t height)
 
 		for (int y = 0; y < height; y++)
 		{
-			_data[x].push_back(Char(x + (y * 16), Color(0.2, 0.2, 0.2, 1.0)));
+			_data[x].push_back(Char(' '));
 		}
 	}
 }
@@ -59,4 +59,19 @@ void Plate::SetChar(uint32_t x, uint32_t y, Char data)
 bool Plate::IsInside(uint32_t x, uint32_t y) const
 {
 	return x < _width && y < _height;
+}
+
+void Plate::WriteString(const std::string& string, int x, int y, const Color& fg, const Color& bg)
+{
+	int cursorX = x;
+	int cursorY = y;
+	for (auto& c : string)
+	{
+		if (IsInside(cursorX, cursorY))
+		{
+			SetChar(cursorX, cursorY, Char(c, fg, bg));
+		}
+
+		cursorX++;
+	}
 }

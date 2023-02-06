@@ -1,5 +1,7 @@
 #include "Camera.h"
 #include "Core/InputManager.h"
+#include "Core/Globals.h"
+
 #include <GLFW/glfw3.h>
 
 Camera::Camera()
@@ -62,4 +64,11 @@ Matrix4 Camera::GetView()
 Matrix4 Camera::GetProjection() const
 {
 	return _projection;
+}
+
+Vector2 Camera::GetWorldCenterCoord() const
+{
+	// Camera world pos
+	Vector2 result = Vector2(_position.x, _position.y) * Vector2(1.0 / Globals::TileSize);
+	return result;
 }

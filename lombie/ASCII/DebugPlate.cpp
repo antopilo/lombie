@@ -1,5 +1,6 @@
 #include "DebugPlate.h"
 #include "PlateRenderer.h"
+#include "../Core/Globals.h"
 
 DebugPlate::DebugPlate()
 {
@@ -19,7 +20,6 @@ DebugPlate::DebugPlate()
 void DebugPlate::Draw()
 {
 	Matrix4 transform = Matrix4(1);
-	transform = glm::scale(transform, Vector3(0.25f));
-
+	transform = glm::scale(transform, Vector3(Globals::TileSize));
 	PlateRenderer::Get().RenderPlate(*_plate.get(), transform, Matrix4(1), glm::ortho(0.0, 16.0, 0.0, 9.0, -1.0, 1.0));
 }

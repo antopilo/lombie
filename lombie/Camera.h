@@ -23,4 +23,6 @@ public:
 	Vector3 GetPosition() const;
 	Matrix4 GetView();
 	Matrix4 GetProjection() const;
+
+	Vector2 GetWorldCenterCoord() const;
 };

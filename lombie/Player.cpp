@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "Core/InputManager.h"
 #include "ASCII/PlateRenderer.h"
-#include "World.h"
+#include "Core/Globals.h"
 
 #include <GLFW/glfw3.h>
 
@@ -19,6 +19,12 @@ Player::Player(const std::string& name) :
 	_timeAlive = 0.0f;
 	_actionStarted = 0.0f;
 	_actionEnd = 0.0f;
+
+	_inventory.AddItem(IItem("Rock", 0.1f, ItemType::Weapon));
+	_inventory.AddItem(IItem("Rock", 0.1f, ItemType::Weapon));
+	_inventory.AddItem(IItem("Rock", 0.1f, ItemType::Weapon));
+	_inventory.AddItem(IItem("Rock", 0.1f, ItemType::Weapon));
+	_inventory.AddItem(IItem("Rock", 0.1f, ItemType::Weapon));
 }
 
 void Player::Update(float ts)
@@ -76,9 +82,9 @@ void Player::Update(float ts)
 void Player::Draw()
 {
 	Matrix4 transform = Matrix4(1.0);
-	transform = glm::scale(transform, Vector3(0.25f));
+	transform = glm::scale(transform, Vector3(Globals::TileSize));
 	transform = glm::translate(transform, Vector3(_position.x, _position.y, 0.1f));
-	PlateRenderer::Get().RenderChar(Char((char)icon), transform);
+	PlateRenderer::Get().RenderChar(Char(icon, Color(1.0, 0.0, 0.0, 1.0)), transform);
 
 	if (ImGui::Begin("Player"))
 	{
@@ -97,6 +103,11 @@ void Player::Draw()
 		ImGui::Text(("Char id:" + std::to_string((unsigned char)icon)).c_str());
 	}
 	ImGui::End();
+}
+
+Inventory& Player::GetInventory()
+{
+	return _inventory;
 }
 
 void Player::QueueAction(IAction* action)

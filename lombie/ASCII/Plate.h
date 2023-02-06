@@ -2,6 +2,7 @@
 #include "Char.h"
 
 #include <memory>
+#include <string>
 #include <vector>
 
 class Plate
@@ -21,4 +22,6 @@ public:
 	Char GetChar(uint32_t x, uint32_t y) const;
 	void SetChar(uint32_t x, uint32_t y, Char data);
 	bool IsInside(uint32_t x, uint32_t y) const;
+
+	void WriteString(const std::string& string, int x, int y, const Color& fg = Color(1, 1, 1, 1), const Color& bg = Color(0, 0, 0, 1));
 };

@@ -9,6 +9,7 @@ private:
 	Color _bgColor;
 
 public:
+	Char() = default;
 	Char(unsigned char data, const Color& fg = Color(1.0f, 1.0f, 1.0f, 1.0f), const Color& bgColor = Color(0.0f, 0.0f, 0.0f, 1.0f));
 	~Char();
 

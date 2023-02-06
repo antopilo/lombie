@@ -3,31 +3,37 @@
 #include "ASCII/UIPlate.h"
 #include "Camera.h"
 #include "Player.h"
-
+#include <NuakeRenderer/Window.h>
+#include "Inventory/Entity.h"
 #include <memory>
 #include <string>
 
 class World
 {
-public:
-	const float WORLD_SIZE = 0.25f;
-
 private:
 	std::string _name;
 	uint32_t _width;
 	uint32_t _height;
-	
-	std::shared_ptr<Plate> _plate;
-	Camera _camera;
-	
+	float _worldTime = 0.0f;
+
 	std::shared_ptr<Player> _player;
 
+	Camera _camera;
+	
+	Vector2 _worldMouseCoords;
+
+	std::shared_ptr<Plate> _plate;
+
+	std::vector<Entity*> _entities;
 	std::vector<std::shared_ptr<UIPlate>> _ui;
+	Entity* _hoveredEntity;
+	bool _isHoveringEntity = false;
+
 public:
 	World(const std::string& name, uint32_t width, uint32_t height);
 	~World();
 
-	void Update(float ts);
+	void Update(float ts, NuakeRenderer::Window& window);
 	void Render();
 
 public:

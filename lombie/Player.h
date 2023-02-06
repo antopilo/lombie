@@ -1,6 +1,7 @@
 #pragma once
 #include <NuakeRenderer/Math.h>
 #include "Actions/IAction.h"
+#include "Inventory/Inventory.h"
 
 #include <queue>
 #include <string>
@@ -13,8 +14,9 @@ enum class PLAYER_STATE
 
 class Player
 {
-private:
-	char icon = 'z';
+public:
+	unsigned char icon = '@';
+
 	Vector2 _targetPosition;
 	Vector2 _position;
 	Vector2 _startPosition;
@@ -31,6 +33,7 @@ private:
 	float _timeAlive;
 	float _actionStarted;
 
+	Inventory _inventory;
 public:
 	Player(const std::string& name);
 	~Player() = default;
@@ -42,6 +45,8 @@ public:
 
 	void Update(float ts);
 	void Draw();
+
+	Inventory& GetInventory();
 
 	bool CanPerformAction(float cost);
 	void DrainStamina(float cost);
