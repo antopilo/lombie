@@ -10,7 +10,7 @@ uniform mat4 u_Projection;
 out vec2 v_UV;
 
 void main() {
-	v_UV = UV;
+	v_UV = vec2(int(UV.x), int(UV.y));
 
 	gl_Position = u_Projection * u_View * u_Model * vec4(Position, 1.0f);
 }

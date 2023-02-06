@@ -1,10 +1,15 @@
 #pragma once
 #include "ASCII/Plate.h"
 #include "ASCII/UIPlate.h"
+#include "ASCII/ContextMenuPlate.h"
+
 #include "Camera.h"
 #include "Player.h"
-#include <NuakeRenderer/Window.h>
 #include "Inventory/Entity.h"
+
+#include <NuakeRenderer/Window.h>
+
+
 #include <memory>
 #include <string>
 
@@ -21,6 +26,7 @@ private:
 	Camera _camera;
 	
 	Vector2 _worldMouseCoords;
+	Vector2 _mouseTilePosition;
 
 	std::shared_ptr<Plate> _plate;
 
@@ -29,6 +35,8 @@ private:
 	Entity* _hoveredEntity;
 	bool _isHoveringEntity = false;
 
+	bool _contextMenuOpened = false;
+	ContextMenuPlate* _contextMenu;
 public:
 	World(const std::string& name, uint32_t width, uint32_t height);
 	~World();

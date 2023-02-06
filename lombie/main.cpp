@@ -81,6 +81,8 @@ int main()
 		}
 		NuakeRenderer::EndImGuiFrame();
 
+		Input::Update();
+
 		gameWindow.SwapBuffers();
 		NuakeRenderer::PollEvents();
 	}

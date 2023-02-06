@@ -1,5 +1,8 @@
 #include "InputManager.h"
+
 #include <GLFW/glfw3.h>
+
+#include <iostream>
 
 GLFWwindow* Input::_window;
 
@@ -89,26 +92,52 @@ void Input::ShowMouse()
 }
 
 
-// Action
+/// <summary>
+/// Returns true if the mouse button is being held down
+/// </summary>
+/// <param name="button"></param>
+/// <returns></returns>
 bool Input::IsMouseButtonDown(int button)
 {
 	auto state = glfwGetMouseButton(_window, button);
 
+	m_MouseButtons[button] = state;
 	return state == GLFW_PRESS;
 }
 
+/// <summary>
+/// Returns true if the mouse has been pressed. Only activates once.
+/// </summary>
+/// <param name="button"></param>
+/// <returns></returns>
 bool Input::IsMouseButtonPressed(int button)
 {
 	auto state = glfwGetMouseButton(_window, button);
+	bool result = state == GLFW_PRESS;
+	if (result && m_MouseButtons[button] == false)
+	{
+		return true;
+	}
 
 	return false;
 }
 
+/// <summary>
+/// Returns true when the mouse button gets released
+/// </summary>
+/// <param name="button"></param>
+/// <returns></returns>
 bool Input::IsMouseButtonReleased(int button)
 {
 	auto state = glfwGetMouseButton(_window, button);
 
-	return state == GLFW_RELEASE && m_MouseButtons[button] == true;
+	bool result = state == GLFW_RELEASE;
+	if (result && m_MouseButtons[button] == true)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 // Position

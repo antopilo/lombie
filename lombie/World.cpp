@@ -1,13 +1,16 @@
 #include "World.h"
+
+#include "ASCII/InventoryPlate.h"
 #include "ASCII/PlateRenderer.h"
-#include "Core/InputManager.h"
 #include "ASCII/UIPlate.h"
-#include <iostream>
+#include "Core/InputManager.h"
 #include "Core/Globals.h"
 #include "Inventory/Entity.h"
-#include <Dependencies/imgui/imgui.h>
-#include "ASCII/InventoryPlate.h"
 
+#include <Dependencies/imgui/imgui.h>
+#include <GLFW/glfw3.h>
+
+#include <iostream>
 
 World::World(const std::string& name, uint32_t width, uint32_t height) :
 	_name(name),
@@ -17,8 +20,9 @@ World::World(const std::string& name, uint32_t width, uint32_t height) :
 	_plate = std::make_shared<Plate>(width, height);
 	_player = std::make_shared<Player>("Dev");
 
+	_contextMenu = new ContextMenuPlate(_player.get());
+
 	_player->SetPosition(width / 2, height / 2);
-	// World Plate
 	_worldMouseCoords = Vector2(-1, -1);
 	
 	// Generate some random world
@@ -64,6 +68,8 @@ void World::Update(float ts, NuakeRenderer::Window& window)
 	float mouseX = Input::GetMouseX() / screenWidth;
 	float mouseY = (window.GetWindowSize().y - Input::GetMouseY()) / screenHeight;
 
+	_mouseTilePosition = Vector2((int)mouseX, (int)(mouseY - 0.5));
+
 	bool mouseGrabbed = false;
 	for (auto& u : _ui)
 	{
@@ -76,7 +82,6 @@ void World::Update(float ts, NuakeRenderer::Window& window)
 
 	if (!mouseGrabbed)
 	{
-		// hover tile.
 		_worldMouseCoords = Vector2((int)mouseX, (int)(mouseY - 0.5));
 		_worldMouseCoords -= _camera.GetWorldCenterCoord();
 		_worldMouseCoords -= Vector2(ceil(numTileWidth / 2.0), ceil(numTileHeight / 2.0));
@@ -127,6 +132,13 @@ void World::Update(float ts, NuakeRenderer::Window& window)
 				hasFoundEntity = true;
 				_isHoveringEntity = true;
 				_hoveredEntity = e;
+
+				if (Input::IsMouseButtonReleased(GLFW_MOUSE_BUTTON_2))
+				{
+					_contextMenuOpened = true;
+					_contextMenu->SetSelectedEntity(_hoveredEntity);
+					_contextMenu->RecreatePlate(_mouseTilePosition);
+				}
 			}
 		}
 
@@ -253,6 +265,11 @@ void World::Render()
 			labelTransform = glm::translate(labelTransform, Vector3(0.5, 0, 0));
 			PlateRenderer::Get().RenderCharHalf(Char(' ', Globals::Colors[ColorNames::Black], lightColor), labelTransform);
 		}
+	}
+
+	if (_contextMenuOpened)
+	{
+		_contextMenu->Draw();
 	}
 }
 
