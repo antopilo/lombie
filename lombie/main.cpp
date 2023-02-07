@@ -36,7 +36,9 @@ Rain effect:
 		* --------------------------------------*
 	========================================
 
-
+	// Vegetation
+	- Notes on vegetation juice:
+	- make them wiggle with wind
 */
 
 /* LOMBIE v0.0.1
@@ -57,6 +59,8 @@ TODO:
 	[ ] Time of Day
 	[ ] P1 - Tile light levels
 	[ ] Weathers
+		[ ] Wind direction and Speed
+
 	[ ] Fog of War maybe? Would be cool. Not necessary
 
 [ ] Entities
