@@ -1,6 +1,7 @@
 #pragma once
 #include "IAction.h"
 #include "../Player.h"
+
 enum class WalkDirection
 {
 	Up, Down, Left, Right

@@ -2,14 +2,17 @@
 #include "Core/InputManager.h"
 #include "ASCII/PlateRenderer.h"
 #include "Core/Globals.h"
+#include "World.h"
 
 #include <GLFW/glfw3.h>
 
 #include "Actions/WalkAction.h"
 #include <Dependencies/imgui/imgui.h>
+#include "Actions/LootAction.h"
 
-Player::Player(const std::string& name) :
-	_name(name)
+Player::Player(const std::string& name, World* world) :
+	_name(name),
+	_world(world)
 {
 	_age = 25;
 	_stamina = 100.0f;
@@ -53,20 +56,29 @@ void Player::Update(float ts)
 	bool isShift = Input::IsKeyPressed(GLFW_KEY_LEFT_SHIFT);
 	if (Input::IsKeyPressed(GLFW_KEY_D))
 	{
-		QueueAction(new WalkAction(WalkDirection::Right, this));
+		QueueAction(std::make_shared<WalkAction>(WalkDirection::Right, this));
 	}
 	else if(Input::IsKeyPressed(GLFW_KEY_A))
 	{
-		QueueAction(new WalkAction(WalkDirection::Left, this));
+		QueueAction(std::make_shared<WalkAction>(WalkDirection::Left, this));
 	}
 	else if (Input::IsKeyPressed(GLFW_KEY_W))
 	{
-		QueueAction(new WalkAction(WalkDirection::Up, this));
+		QueueAction(std::make_shared<WalkAction>(WalkDirection::Up, this));
 	}
 	else if (Input::IsKeyPressed(GLFW_KEY_S))
 	{
-		QueueAction(new WalkAction(WalkDirection::Down, this));
+		QueueAction(std::make_shared<WalkAction>(WalkDirection::Down, this));
 	}
+	else if (Input::IsKeyPressed(GLFW_KEY_P))
+	{
+		if (Entity* ent = _world->GetEntity(_position); ent != nullptr &&
+			ent->Type == EntityType::Item)
+		{
+			QueueAction(std::make_shared<LootAction>(this, *dynamic_cast<ItemEntity*>(ent)));
+		}
+	}
+
 
 	if (_actionQueue.size() > 0)
 	{
@@ -110,11 +122,11 @@ Inventory& Player::GetInventory()
 	return _inventory;
 }
 
-void Player::QueueAction(IAction* action)
+void Player::QueueAction(std::shared_ptr<IAction> action)
 {
 	if (_actionQueue.size() < 3)
 	{
-		_actionQueue.push(action);
+		_actionQueue.push(std::move(action));
 	}
 }
 

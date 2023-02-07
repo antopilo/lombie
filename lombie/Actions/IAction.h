@@ -3,5 +3,6 @@
 class IAction
 {
 public:
-	virtual void Execute() = 0;
+	IAction() = default;
+	virtual void Execute() {};
 };

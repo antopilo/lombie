@@ -3,8 +3,11 @@
 #include "Actions/IAction.h"
 #include "Inventory/Inventory.h"
 
+#include <memory>
 #include <queue>
 #include <string>
+
+class World;
 
 enum class PLAYER_STATE
 {
@@ -27,18 +30,19 @@ public:
 	float _stamina;
 	float _walkSpeed;
 	PLAYER_STATE _state;
+	World* _world;
 
-	std::queue<IAction*> _actionQueue;
+	std::queue<std::shared_ptr<IAction>> _actionQueue;
 	float _actionEnd;
 	float _timeAlive;
 	float _actionStarted;
 
 	Inventory _inventory;
 public:
-	Player(const std::string& name);
+	Player(const std::string& name, World* world);
 	~Player() = default;
 
-	void QueueAction(IAction* acation);
+	void QueueAction(std::shared_ptr<IAction> acation);
 
 	Vector2 GetPosition() const;
 	void SetPosition(uint32_t x, uint32_t y);

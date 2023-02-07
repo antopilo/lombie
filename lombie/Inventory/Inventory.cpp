@@ -46,10 +46,11 @@ void Inventory::RemoveItem(IItem item)
 	{
 		return;
 	}
+
 	std::vector<IItem>& container = _items[item._type];
 
 	int idx = 0;
-	for (auto i : container)
+	for (const auto& i : container)
 	{
 		if (i._name == item._name)
 		{

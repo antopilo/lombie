@@ -44,6 +44,10 @@ public:
 	void Update(float ts, NuakeRenderer::Window& window);
 	void Render();
 
+	bool HasEntity(const Vector2& pos);
+
+	Entity* GetEntity(const Vector2& pos);
+	void DestroyEntity(const Vector2& pos);
 public:
 	Camera& GetCamera();
 };

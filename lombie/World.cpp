@@ -1,3 +1,5 @@
+#include "Player.h"
+
 #include "World.h"
 
 #include "ASCII/InventoryPlate.h"
@@ -18,7 +20,7 @@ World::World(const std::string& name, uint32_t width, uint32_t height) :
 	_height(height)
 {
 	_plate = std::make_shared<Plate>(width, height);
-	_player = std::make_shared<Player>("Dev");
+	_player = std::make_shared<Player>("Dev", this);
 
 	_contextMenu = new ContextMenuPlate(_player.get());
 
@@ -271,6 +273,40 @@ void World::Render()
 	{
 		_contextMenu->Draw();
 	}
+}
+
+bool World::HasEntity(const Vector2& pos)
+{
+	auto it = std::find_if(_entities.begin(), _entities.end(), [pos](Entity* e)
+		{
+			return e->Position == pos;
+		});
+
+	return  it != _entities.end();
+}
+
+Entity* World::GetEntity(const Vector2& pos)
+{
+	auto it = std::find_if(_entities.begin(), _entities.end(), [pos](Entity* e)
+		{
+			return e->Position == pos;
+		});
+
+	// Maybe there's a better way to handle not found entities.
+	if (it == _entities.end())
+	{
+		return nullptr;
+	}
+
+	return *it;
+}
+
+void World::DestroyEntity(const Vector2& pos)
+{
+	_entities.erase(std::remove_if(_entities.begin(), _entities.end(), [pos](Entity* e) 
+		{
+		return e->Position == pos;
+		}));
 }
 
 Camera& World::GetCamera()
