@@ -291,7 +291,6 @@ Entity* World::GetEntity(const Vector2& pos)
 		{
 			return e->Position == pos;
 		});
-
 	// Maybe there's a better way to handle not found entities.
 	if (it == _entities.end())
 	{

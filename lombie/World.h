@@ -9,7 +9,6 @@
 
 #include <NuakeRenderer/Window.h>
 
-
 #include <memory>
 #include <string>
 
