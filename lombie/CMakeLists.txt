@@ -2,18 +2,27 @@ set(HEADERS World.h
 ASCII/Plate.h  
 ASCII/Char.h 
 ASCII/PlateRenderer.h 
+ASCII/ContextMenuPlate.h ASCII/DebugPlate.h ASCII/InventoryPlate.h ASCII/UIPlate.h
+Actions/IAction.h Actions/LootAction.h Actions/WalkAction.h
 Core/InputManager.h 
 Core/FileSystem.h 
-Camera.h)
+Core/Globals.h 
+Camera.h Player.h 
+Inventory/Entity.h Inventory/IItem.h Inventory/Inventory.h)
 
 set(SOURCES main.cpp 
 World.cpp 
 ASCII/Plate.cpp 
 ASCII/Char.cpp 
 ASCII/PlateRenderer.cpp 
+ASCII/ContextMenuPlate.cpp ASCII/DebugPlate.cpp ASCII/InventoryPlate.cpp ASCII/UIPlate.cpp 
+Actions/LootAction.cpp Actions/WalkAction.cpp 
 Core/FileSystem.cpp 
 Core/InputManager.cpp 
-Camera.cpp )
+Core/Globals.cpp 
+Camera.cpp 
+Player.cpp 
+Inventory/Inventory.cpp)
 
 add_executable(lombie-game ${HEADERS} ${SOURCES})
 set_property(TARGET lombie-game PROPERTY CXX_STANDARD 20)
