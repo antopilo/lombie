@@ -100,6 +100,57 @@ void InventoryPlate::Draw()
 		}
 	}
 
+	// Junk
+	auto food = inv.GetItemsOfType(ItemType::Food);
+	if (food.size() > 0)
+	{
+		// Update zone
+		Zone& zone = _zones["food_header"];
+		zone.y = line;
+		zone.yy = line;
+
+		Color bg = Color(0, 0, 0, 1);
+		const Color hoverColor = Color(0.2, 0.2, 0.2, 1.0);
+
+		if (zone._state == ZoneState::Hover)
+		{
+			bg = hoverColor;
+		}
+		_plate->WriteString("F o o d", 2, line, Color(1, 1, 1, 1), bg);
+
+		line--;
+
+		auto count = 0;
+		for (const auto& f : food)
+		{
+			count++;
+			int nameLength = f._name.size() + 1;
+			
+			_plate->SetChar(3, line, Char(254, Color(0.5, 0.5, 0, 1.0)));
+			_plate->SetChar(4, line, Char(' ', Color(0.5, 0.5, 0, 1.0)));
+
+			_plate->WriteString(f._name + " ", 5, line, Color(0.5, 0, 0, 1));
+
+			// Reset weight if previous name was longer
+			_plate->WriteString("          ", 5 + nameLength, line, Color(0.2, 0.2, 0.2, 1.0));
+
+			std::string weightLabel = std::format("{}", f._weight) + "lb";
+			_plate->WriteString(weightLabel, 5 + nameLength, line, Color(0.2, 0.2, 0.2, 1.0));
+			line--;
+
+			// Delete visually from Inventory
+			if((int)food.size() == count && _player->justAte)
+			{
+				_player->justAte = false;
+				
+				_plate->SetChar(3, line, Char(' ', Color(0.5, 0.5, 0, 1.0)));
+				_plate->SetChar(4, line, Char(' ', Color(0.5, 0.5, 0, 1.0)));
+				_plate->WriteString("            ", 5, line, Color(0.5, 0, 0, 1));
+			}
+		}
+		
+	}
+
 	Matrix4 transform = Matrix4(1);
 	transform = glm::scale(transform, Vector3(Globals::TileSize));
 	transform = glm::translate(transform, Vector3(_position.x, _position.y, 0.1f));

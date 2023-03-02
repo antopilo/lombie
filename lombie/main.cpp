@@ -107,6 +107,8 @@ void LoadColors()
 	Globals::Colors[ColorNames::DarkBlue] = Color(0, 0.2, 0.5, 1);
 	Globals::Colors[ColorNames::Green] = Color(0, 1, 0.2, 1);
 	Globals::Colors[ColorNames::DarkGreen] = Color(0, 0.4, 0.05, 1);
+	Globals::Colors[ColorNames::DarkRed] = Color(0.54, 0.0, 0.0, 1);
+	Globals::Colors[ColorNames::Red] = Color(1, 0.0, 0.0, 1);
 
 	std::cout << "Colors initialized" << std::endl;
 }

@@ -43,6 +43,9 @@ public:
 		case ItemType::Weapon:
 			Visual = Char('w', Globals::Colors[ColorNames::Blue]);
 			break;
+		case ItemType::Food:
+			Visual = Char('f', Globals::Colors[ColorNames::DarkRed]);
+			break;
 		default:
 			Visual = '?';
 			break;
