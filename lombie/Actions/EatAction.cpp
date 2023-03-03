@@ -16,10 +16,8 @@ void EatAction::Execute()
     {
         IItem firstItem = _player->_inventory.GetItemsOfType(ItemType::Food)[0];
         _player->_inventory.RemoveItem(firstItem);
-        _player->justAte = true;
+        _player->_justAte = true;
+        return;
     }
-    else
-    {
-        std::cout << "Nothing to eat!!" << std::endl;
-    }
+    std::cout << "Nothing to eat!!" << std::endl;
 }
