@@ -100,7 +100,7 @@ void InventoryPlate::Draw()
 		}
 	}
 
-	// Junk
+	// Food
 	auto food = inv.GetItemsOfType(ItemType::Food);
 	if (food.size() > 0)
 	{
@@ -136,16 +136,23 @@ void InventoryPlate::Draw()
 			_plate->WriteString(weightLabel, 5 + nameLength, line, Color(0.2, 0.2, 0.2, 1.0));
 			line--;
 		}
+	}
 
-		// Delete visually from Inventory
-		if(_player->_justAte)
+	// Delete Food visually from Inventory
+	if(_player->_justAte)
+	{
+		// Delete category then delete the last item from UI
+		if(food.size() == 0)
 		{
-			_player->_justAte = false;
-				
-			_plate->SetChar(3, line, Char(' ', Color(0.5, 0.5, 0, 1.0)));
-			_plate->SetChar(4, line, Char(' ', Color(0.5, 0.5, 0, 1.0)));
-			_plate->WriteString("            ", 5, line, Color(0.5, 0, 0, 1));
+			_plate->WriteString("            ", 2, line, Color(1, 1, 1, 1));
+			line--;
 		}
+		
+		_player->_justAte = false;
+				
+		_plate->SetChar(3, line, Char(' ', Color(0.5, 0.5, 0, 1.0)));
+		_plate->SetChar(4, line, Char(' ', Color(0.5, 0.5, 0, 1.0)));
+		_plate->WriteString("            ", 5, line, Color(0.5, 0, 0, 1));
 	}
 
 	Matrix4 transform = Matrix4(1);
