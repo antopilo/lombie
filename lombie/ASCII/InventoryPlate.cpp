@@ -135,11 +135,8 @@ void InventoryPlate::Draw()
 			std::string weightLabel = std::format("{}", f._weight) + "lb";
 			_plate->WriteString(weightLabel, 5 + nameLength, line, Color(0.2, 0.2, 0.2, 1.0));
 			line--;
-
-			
-			
 		}
-		
+
 		// Delete visually from Inventory
 		if(_player->_justAte)
 		{
