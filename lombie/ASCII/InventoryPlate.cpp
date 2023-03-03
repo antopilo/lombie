@@ -120,10 +120,8 @@ void InventoryPlate::Draw()
 
 		line--;
 
-		auto count = 0;
 		for (const auto& f : food)
 		{
-			count++;
 			int nameLength = f._name.size() + 1;
 			
 			_plate->SetChar(3, line, Char(254, Color(0.5, 0.5, 0, 1.0)));
@@ -138,17 +136,19 @@ void InventoryPlate::Draw()
 			_plate->WriteString(weightLabel, 5 + nameLength, line, Color(0.2, 0.2, 0.2, 1.0));
 			line--;
 
-			// Delete visually from Inventory
-			if((int)food.size() == count && _player->justAte)
-			{
-				_player->justAte = false;
-				
-				_plate->SetChar(3, line, Char(' ', Color(0.5, 0.5, 0, 1.0)));
-				_plate->SetChar(4, line, Char(' ', Color(0.5, 0.5, 0, 1.0)));
-				_plate->WriteString("            ", 5, line, Color(0.5, 0, 0, 1));
-			}
+			
+			
 		}
 		
+		// Delete visually from Inventory
+		if(_player->_justAte)
+		{
+			_player->_justAte = false;
+				
+			_plate->SetChar(3, line, Char(' ', Color(0.5, 0.5, 0, 1.0)));
+			_plate->SetChar(4, line, Char(' ', Color(0.5, 0.5, 0, 1.0)));
+			_plate->WriteString("            ", 5, line, Color(0.5, 0, 0, 1));
+		}
 	}
 
 	Matrix4 transform = Matrix4(1);

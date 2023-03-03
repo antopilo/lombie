@@ -60,7 +60,6 @@ World::World(const std::string& name, uint32_t width, uint32_t height) :
 	ItemEntity* hamE3 = new ItemEntity(ham3, Vector2(width / 2 - 4, height / 2 - 4));
 	_entities.push_back(hamE3);
 
-
 	auto plate = std::make_shared<UIPlate>(Vector2(0,0), 16, 10);
 	_ui.push_back(plate);
 	auto plateInv = std::make_shared<InventoryPlate>(_player.get());

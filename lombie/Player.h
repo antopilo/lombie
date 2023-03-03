@@ -37,9 +37,8 @@ public:
 	float _actionEnd;
 	float _timeAlive;
 	float _actionStarted;
-
-	bool justAte = false;
-
+	bool _justAte;
+	
 	Inventory _inventory;
 public:
 	Player(const std::string& name, World* world);

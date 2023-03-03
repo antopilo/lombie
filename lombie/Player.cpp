@@ -25,6 +25,7 @@ Player::Player(const std::string& name, World* world) :
 	_timeAlive = 0.0f;
 	_actionStarted = 0.0f;
 	_actionEnd = 0.0f;
+	_justAte = false;
 
 	_inventory.AddItem(IItem("Rock", 0.1f, ItemType::Weapon));
 	_inventory.AddItem(IItem("Rock", 0.1f, ItemType::Weapon));
