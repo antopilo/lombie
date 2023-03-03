@@ -3,7 +3,7 @@ ASCII/Plate.h
 ASCII/Char.h 
 ASCII/PlateRenderer.h 
 ASCII/ContextMenuPlate.h ASCII/DebugPlate.h ASCII/InventoryPlate.h ASCII/UIPlate.h
-Actions/IAction.h Actions/LootAction.h Actions/WalkAction.h
+Actions/IAction.h Actions/LootAction.h Actions/WalkAction.h Actions/EatAction.h
 Core/InputManager.h 
 Core/FileSystem.h 
 Core/Globals.h 
@@ -16,7 +16,7 @@ ASCII/Plate.cpp
 ASCII/Char.cpp 
 ASCII/PlateRenderer.cpp 
 ASCII/ContextMenuPlate.cpp ASCII/DebugPlate.cpp ASCII/InventoryPlate.cpp ASCII/UIPlate.cpp 
-Actions/LootAction.cpp Actions/WalkAction.cpp 
+Actions/LootAction.cpp Actions/WalkAction.cpp Actions/EatAction.cpp
 Core/FileSystem.cpp 
 Core/InputManager.cpp 
 Core/Globals.cpp 

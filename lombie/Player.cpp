@@ -8,12 +8,15 @@
 
 #include "Actions/WalkAction.h"
 #include <Dependencies/imgui/imgui.h>
+
+#include "Actions/EatAction.h"
 #include "Actions/LootAction.h"
 
 Player::Player(const std::string& name, World* world) :
 	_name(name),
 	_world(world)
 {
+	_health = 59.0f;
 	_age = 25;
 	_stamina = 100.0f;
 	_position = Vector2(0, 0);
@@ -22,6 +25,7 @@ Player::Player(const std::string& name, World* world) :
 	_timeAlive = 0.0f;
 	_actionStarted = 0.0f;
 	_actionEnd = 0.0f;
+	_justAte = false;
 
 	_inventory.AddItem(IItem("Rock", 0.1f, ItemType::Weapon));
 	_inventory.AddItem(IItem("Rock", 0.1f, ItemType::Weapon));
@@ -69,6 +73,10 @@ void Player::Update(float ts)
 	else if (Input::IsKeyPressed(GLFW_KEY_S))
 	{
 		QueueAction(std::make_shared<WalkAction>(WalkDirection::Down, this));
+	}
+	else if (Input::IsKeyPressed(GLFW_KEY_L))
+	{
+		QueueAction(std::make_shared<EatAction>(this));
 	}
 	else if (Input::IsKeyPressed(GLFW_KEY_P))
 	{

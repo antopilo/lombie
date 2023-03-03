@@ -27,6 +27,7 @@ public:
 	std::string _name;
 	uint32_t _age;
 
+	float _health;
 	float _stamina;
 	float _walkSpeed;
 	PLAYER_STATE _state;
@@ -36,7 +37,8 @@ public:
 	float _actionEnd;
 	float _timeAlive;
 	float _actionStarted;
-
+	bool _justAte;
+	
 	Inventory _inventory;
 public:
 	Player(const std::string& name, World* world);
